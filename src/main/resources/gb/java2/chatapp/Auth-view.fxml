@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gb.java2.chatapp.controllers.AuthController">
+   <children>
+      <Label layoutX="14.0" layoutY="38.0" text="Login">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="99.0" text="Password">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnSignIn" layoutX="165.0" layoutY="151.0" mnemonicParsing="false" onAction="#checkAuth" prefHeight="35.0" prefWidth="121.0" text="Sign in">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <TextField fx:id="fieldLogin" layoutX="101.0" layoutY="36.0" promptText="Enter login..." />
+      <PasswordField fx:id="fieldPassword" layoutX="101.0" layoutY="97.0" promptText="Enter password..." />
+      <Button fx:id="btnUserAdd" layoutX="14.0" layoutY="151.0" mnemonicParsing="false" onAction="#addUserWindow" prefHeight="35.0" prefWidth="121.0" text="Registration">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
