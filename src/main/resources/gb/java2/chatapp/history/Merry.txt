@@ -1,0 +1,8 @@
+>01:44:03<
+/clientMsg <Mike> Hi
+>01:44:03<
+Hello
+>01:44:03<
+/privateMsg <Mike> It`s private msg!
+>01:44:03<
+I hope that all functions will be work...

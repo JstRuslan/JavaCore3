@@ -13,7 +13,7 @@ public class AboutController {
 
     public static void showAboutWindow() throws IOException {
         Stage aboutStage = new Stage();
-        FXMLLoader aboutLoader = new FXMLLoader(ChatApp.class.getResource("About-view.fxml"));
+        FXMLLoader aboutLoader = new FXMLLoader(ChatApp.class.getResource("views/About-view.fxml"));
         aboutStage.setScene(new Scene(aboutLoader.load(), 250, 100));
         aboutStage.setTitle("About");
         aboutStage.initModality(Modality.APPLICATION_MODAL);

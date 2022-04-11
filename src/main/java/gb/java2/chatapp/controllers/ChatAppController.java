@@ -2,6 +2,7 @@ package gb.java2.chatapp.controllers;
 
 
 import gb.java2.chatapp.ChatApp;
+import gb.java2.chatapp.models.History;
 import gb.java2.chatapp.models.Network;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,15 +17,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 import gb.java2.server.server.models.Command;
-import java.io.IOException;
+
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ChatAppController {
-    String strDate = new SimpleDateFormat("hh:mm:ss").format(new Date());
-    private Network network;
-
-
     @FXML
     private TextArea fieldChat;
 
@@ -38,8 +36,28 @@ public class ChatAppController {
     @FXML
     private Label labelNickname;
 
+
+    String strDate = new SimpleDateFormat("hh:mm:ss").format(new Date());
+    private Network network;
+    private History history;
     private String selectedRecipient;
 
+    public void setNetwork(Network network) {
+        this.network = network;
+    }
+
+    public void setFieldChat(String str) {
+        this.fieldChat.appendText(str);
+    }
+
+    public void setNickName(String username) {
+        labelNickname.setText(username);
+    }
+
+
+    public void setHistory(History history) {
+        this.history = history;
+    }
 
     public void initialize() {
 
@@ -69,6 +87,7 @@ public class ChatAppController {
     public synchronized void addUserFromList(String username) {
         listViewUsers.getItems().add(username);
     }
+
     public synchronized void removeUserFromList(String username) {
         listViewUsers.getItems().remove(username);
     }
@@ -79,6 +98,7 @@ public class ChatAppController {
 
     @FXML
     void closeApp() {
+        network.sendMsg(Command.END_CLIENT_CMD_PREFIX);
         System.exit(0);
     }
 
@@ -99,10 +119,6 @@ public class ChatAppController {
 
     }
 
-    public void setNetwork(Network network) {
-        this.network = network;
-    }
-
     @FXML
     void sendMsg() {
         String msg = fieldMsg.getText().trim();
@@ -117,7 +133,6 @@ public class ChatAppController {
             network.sendMsg(msg);
         }
         appendMsg(msg);
-
     }
 
     @FXML
@@ -128,19 +143,23 @@ public class ChatAppController {
     }
 
     @FXML
+    void clearFieldHistory(ActionEvent event) {
+        clearFieldChat();
+        history.clearHistory();
+
+    }
+
+    @FXML
     void clearFieldChat() {
         fieldChat.clear();
     }
 
     public synchronized void appendMsg(String msg) {
+        history.writeFileHistory(strDate, msg);
+
         fieldChat.appendText(">" + strDate + "<");
         fieldChat.appendText(System.lineSeparator());
         fieldChat.appendText(msg);
         fieldChat.appendText(System.lineSeparator());
     }
-
-    public void setNickName(String username) {
-        labelNickname.setText(username);
-    }
-
 }

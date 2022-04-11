@@ -64,6 +64,7 @@ public class Network {
             String response = in.readUTF();
             if (response.startsWith(Command.AUTHOK_CMD_PREFIX)) {
                 this.username = response.split("\\s+", 2)[1];
+
                 return null;
             }
             else {

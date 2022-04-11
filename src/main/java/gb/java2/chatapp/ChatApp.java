@@ -2,6 +2,7 @@ package gb.java2.chatapp;
 
 import gb.java2.chatapp.controllers.AuthController;
 import gb.java2.chatapp.controllers.ChatAppController;
+import gb.java2.chatapp.models.History;
 import gb.java2.chatapp.models.Network;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import gb.java2.server.server.models.Command;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ChatApp extends Application {
@@ -20,6 +22,7 @@ public class ChatApp extends Application {
     private Stage authStage;
     private Network network;
     private ChatAppController chatAppController;
+    private History history;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -27,6 +30,7 @@ public class ChatApp extends Application {
         primaryStage = stage;
         network = new Network();
         network.connect();
+        history = new History();
 
         openAuthWindow();
         createChatWindows();
@@ -36,7 +40,7 @@ public class ChatApp extends Application {
 
     private void openAuthWindow() throws IOException {
         authStage = new Stage();
-        FXMLLoader authLoader = new FXMLLoader(ChatApp.class.getResource("Auth-view.fxml"));
+        FXMLLoader authLoader = new FXMLLoader(ChatApp.class.getResource("views/Auth-view.fxml"));
         Scene scene = new Scene(authLoader.load());
         authStage.setScene(scene);
         authStage.initOwner(primaryStage);
@@ -53,7 +57,7 @@ public class ChatApp extends Application {
     }
 
     private void createChatWindows() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ChatApp.class.getResource("ChatApp-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ChatApp.class.getResource("views/ChatApp-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         primaryStage.setScene(scene);
         primaryStage.setTitle("MyChat");
@@ -62,6 +66,7 @@ public class ChatApp extends Application {
 
 
         chatAppController = fxmlLoader.getController();
+        chatAppController.setHistory(history);
         chatAppController.setNetwork(network);
         network.setChatApp(chatAppController);
 
@@ -73,26 +78,28 @@ public class ChatApp extends Application {
         primaryStage.show();
         network.waitMsg();
         chatAppController.setNickName(network.getUsername());
+        history.initChatHistory(network.getUsername(), chatAppController);
 
     }
 
-    public void showAlert(String title, String errorMsg){
+    public void showAlert(String title, String errorMsg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(errorMsg);
         alert.show();
     }
 
-    public void hideAuthWindow(){
+
+    public void hideAuthWindow() {
         authStage.hide();
     }
 
-    public void showAuthWindow(){
+    public void showAuthWindow() {
         authStage.show();
     }
 
     @Override
-    public void stop(){
+    public void stop() {
         network.sendMsg(Command.END_CLIENT_CMD_PREFIX);
     }
 

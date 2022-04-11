@@ -43,7 +43,7 @@ public class NewUserController {
         netWork = network;
         chatapp = chatApp;
         newUserStage = new Stage();
-        FXMLLoader newUserLoader = new FXMLLoader(ChatApp.class.getResource("NewUser-view.fxml"));
+        FXMLLoader newUserLoader = new FXMLLoader(ChatApp.class.getResource("views/NewUser-view.fxml"));
         Scene scene = new Scene(newUserLoader.load(), 300, 300);
         newUserStage.setScene(scene);
         newUserStage.setTitle("Register user");
