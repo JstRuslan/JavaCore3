@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gb.java2.chatapp.controllers.NewUserController">
+   <children>
+      <Label layoutX="22.0" layoutY="33.0" text="Nickname">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="87.0" prefHeight="16.0" prefWidth="64.0" text="Login">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="18.0" layoutY="140.0" text="Password">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="fieldUsername" layoutX="112.0" layoutY="30.0" promptText="Enter nickname" />
+      <TextField fx:id="fieldLogin" layoutX="112.0" layoutY="84.0" promptText="Enter login" />
+      <Button fx:id="btnAddUser" layoutX="163.0" layoutY="228.0" mnemonicParsing="false" onAction="#addUser" prefHeight="40.0" prefWidth="100.0" text="ADD USER" />
+      <Button fx:id="btnBack" layoutX="31.0" layoutY="228.0" mnemonicParsing="false" onAction="#returnBack" prefHeight="40.0" prefWidth="100.0" text="BACK" />
+      <PasswordField fx:id="fieldPassword" layoutX="112.0" layoutY="138.0" promptText="Enter password" />
+      <PasswordField fx:id="fieldConfirmPass" layoutX="112.0" layoutY="175.0" promptText="Confirm password" />
+   </children>
+</AnchorPane>
